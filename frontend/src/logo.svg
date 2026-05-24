@@ -1,0 +1,55 @@
+<svg width="220" height="220" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+
+  <defs>
+    <linearGradient id="hexBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e90ff"/>
+      <stop offset="100%" stop-color="#0047ab"/>
+    </linearGradient>
+
+    <linearGradient id="slashGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFD54F"/>
+      <stop offset="100%" stop-color="#FFB300"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Hexagon -->
+  <polygon
+    points="110,15 180,55 180,135 110,175 40,135 40,55"
+    fill="none"
+    stroke="url(#hexBlue)"
+    stroke-width="10"
+    stroke-linejoin="round"
+  />
+
+  <!-- Left Bracket -->
+  <polyline
+    points="95,65 70,95 95,125"
+    fill="none"
+    stroke="#ffffff"
+    stroke-width="10"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <!-- Right Bracket -->
+  <polyline
+    points="125,65 150,95 125,125"
+    fill="none"
+    stroke="#ffffff"
+    stroke-width="10"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <!-- Yellow Slash -->
+  <line
+    x1="128"
+    y1="45"
+    x2="92"
+    y2="145"
+    stroke="url(#slashGold)"
+    stroke-width="12"
+    stroke-linecap="round"
+  />
+
+</svg>

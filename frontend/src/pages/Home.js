@@ -7,7 +7,6 @@ import {
   Database,
   Cpu,
   Sparkles,
-  ArrowRight,
   Briefcase,
   Globe,
   GitBranch,

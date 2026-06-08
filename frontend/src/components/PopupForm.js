@@ -7,6 +7,10 @@ const ProjectPopup = ({ isOpen, onClose }) => {
   const form = useRef();
   const [loading, setLoading] = useState(false);
 
+  const validateEmail = (email) => {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+};
+
   // ESC close
   useEffect(() => {
     const handleEsc = (e) => {
@@ -18,30 +22,54 @@ const ProjectPopup = ({ isOpen, onClose }) => {
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setLoading(true);
+ const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    emailjs
-      .sendForm(
-        "service_xs797fp",
-        "template_r47nqhp",
-        form.current,
-        "uxETAUVZJdDUlICYT"
-      )
-      .then(() => {
-        toast.success("🚀 Message sent successfully!");
-        form.current.reset();
-        onClose();
-      })
-      .catch((error) => {
-        toast.error("❌ Failed to send message");
-        console.log(error.text);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  };
+  const formData = new FormData(form.current);
+
+  const name = formData.get("name")?.trim();
+  const email = formData.get("email")?.trim();
+  const project = formData.get("project")?.trim();
+  const message = formData.get("message")?.trim();
+
+  if (!name || name.length < 3) {
+    return toast.error("Please enter a valid name");
+  }
+
+  if (!validateEmail(email)) {
+    return toast.error("Please enter a valid email address");
+  }
+
+  if (!project || project.length < 3) {
+    return toast.error("Please enter a project type");
+  }
+
+  if (!message || message.length < 20) {
+    return toast.error(
+      "Please provide more details about your project (minimum 20 characters)"
+    );
+  }
+
+  setLoading(true);
+
+  try {
+    await emailjs.sendForm(
+      "service_xs797fp",
+      "template_r47nqhp",
+      form.current,
+      "uxETAUVZJdDUlICYT"
+    );
+
+    toast.success("🚀 Message sent successfully!");
+    form.current.reset();
+    onClose();
+  } catch (error) {
+    toast.error("❌ Failed to send message");
+    console.error(error);
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div
@@ -86,12 +114,14 @@ const ProjectPopup = ({ isOpen, onClose }) => {
             required
           />
 
-          <input
-            name="email"
-            placeholder="Email Address"
-            className="w-full px-4 py-3 rounded-xl bg-black/30 text-white border border-white/10 focus:border-blue-500 outline-none"
-            required
-          />
+         <input
+  type="email"
+  name="email"
+  placeholder="Email Address"
+  autoComplete="email"
+  className="w-full px-4 py-3 rounded-xl bg-black/30 text-white border border-white/10 focus:border-blue-500 outline-none"
+  required
+/>
 
           <input
             name="project"

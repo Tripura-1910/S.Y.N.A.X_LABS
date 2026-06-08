@@ -8,6 +8,7 @@ import {
   Cpu,
   Sparkles,
   ArrowRight,
+  Briefcase,
   Globe,
   GitBranch,
   ArrowUpRight,
@@ -42,6 +43,7 @@ import {
   SiFirebase,
 } from "react-icons/si";
 import ProjectPopup from "../components/PopupForm";
+import { Link } from "react-router-dom";
 
 const services = [
   {
@@ -112,18 +114,48 @@ const reasons = [
 ];
 
 const projects = [
-  "E-Commerce Platforms",
-  "School Management Systems",
-  "Hospital Management Systems",
-  "Inventory Management",
-  "Hotel Booking Systems",
-  "ERP Software",
-  "CRM Applications",
-  "AI Chatbots",
-  "Portfolio Websites",
-  "Billing Systems",
-  "SaaS Applications",
-  "Student Management Systems",
+  {
+    title: "AI Voice Assistant",
+    description:
+      "An intelligent voice-based assistant for automation, customer support, and business workflows.",
+    comment:
+      "🎙️ Built to understand natural conversations and automate repetitive tasks.",
+  },
+  {
+    title: "POS Billing Software",
+    description:
+      "Complete billing and inventory management solution with barcode support.",
+    comment:
+      "🛒 Helps retailers manage sales, inventory, customers, and reports effortlessly.",
+  },
+  {
+    title: "E-Commerce Platforms",
+    description:
+      "Modern online stores with payments, order tracking, and admin dashboards.",
+    comment:
+      "📦 Designed to increase online sales with a smooth shopping experience.",
+  },
+  {
+    title: "Business Websites",
+    description:
+      "Professional websites for startups, local businesses, and personal brands.",
+    comment:
+      "🌐 Fast, responsive, and optimized for SEO and lead generation.",
+  },
+  {
+    title: "Mobile Applications",
+    description:
+      "Android and cross-platform applications built using modern technologies.",
+    comment:
+      "📱 User-friendly mobile experiences tailored to business requirements.",
+  },
+  {
+    title: "Custom Software Solutions",
+    description:
+      "Tailor-made software systems for unique business needs and workflows.",
+    comment:
+      "⚙️ Every solution is developed around the client's specific requirements.",
+  },
 ];
 
 const stats = [
@@ -317,9 +349,9 @@ const Home = () => {
             Start Your Project
           </button>
 
-          <button className="px-8 py-4 rounded-2xl border border-slate-700 hover:border-blue-500 hover:bg-blue-500/10 transition duration-300">
+          <Link to="/services" className="px-8 py-4 rounded-2xl border border-slate-700 hover:border-blue-500 hover:bg-blue-500/10 transition duration-300">
             View Services
-          </button>
+          </Link>
 
         </div>
 
@@ -605,34 +637,26 @@ const Home = () => {
 
     <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
 
-      {projects.map((project, index) => (
-        <div
-          key={index}
-          className="group relative overflow-hidden rounded-3xl border border-slate-800 bg-slate-950 p-6 hover:border-blue-500/50 transition-all duration-300 hover:-translate-y-2"
-        >
-          {/* Glow Effect */}
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-600/0 via-blue-600/0 to-cyan-500/0 group-hover:from-blue-600/10 group-hover:to-cyan-500/10 transition-all duration-500"></div>
+  {projects.map((project, index) => (
+  <div
+    key={index}
+    className="bg-slate-900 border border-slate-800 p-8 rounded-3xl"
+  >
+    <Briefcase className="text-cyan-400 mb-4" />
 
-          <div className="relative z-10">
+    <h3 className="text-xl font-semibold mb-3">
+      {project.title}
+    </h3>
 
-            <div className="w-14 h-14 rounded-2xl bg-gradient-to-r from-blue-600 to-cyan-500 flex items-center justify-center mb-5">
-              <span className="text-xl font-bold">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-            </div>
+    <p className="text-gray-400 mb-6">
+      {project.description}
+    </p>
 
-            <h3 className="text-xl font-semibold mb-3 text-white">
-              {project}
-            </h3>
-
-            <p className="text-slate-400 text-sm leading-relaxed">
-              Custom-built, scalable and production-ready solutions
-              designed for modern businesses and organizations.
-            </p>
-
-          </div>
-        </div>
-      ))}
+    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-blue-500/20 bg-blue-500/10 text-blue-300 text-sm">
+      {project.comment}
+    </div>
+  </div>
+))}
 
     </div>
 
@@ -876,10 +900,10 @@ const Home = () => {
 
         </div>
 
-        <button className="mt-10 flex items-center gap-2 px-7 py-4 rounded-2xl bg-gradient-to-r from-blue-600 to-cyan-500 font-semibold hover:scale-105 transition">
+        { /* <button className="mt-10 flex items-center gap-2 px-7 py-4 rounded-2xl bg-gradient-to-r from-blue-600 to-cyan-500 font-semibold hover:scale-105 transition">
           Explore AI Services
-          <ArrowRight size={18} />
-        </button>
+         <ArrowRight size={18} />
+       </button> */}
 
       </motion.div>
 

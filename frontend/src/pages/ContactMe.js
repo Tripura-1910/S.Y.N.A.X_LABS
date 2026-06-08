@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
 import {
@@ -16,6 +16,7 @@ import { toast } from "react-toastify";
 
 const ContactMe = () => {
   const form = useRef();
+  const [loading, setLoading] = useState(false);
   const contacts = [
     
     {
@@ -62,29 +63,57 @@ const ContactMe = () => {
     },
   ];
 
-const sendEmail = (e) => {
+  const validateEmail = (email) => {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+};
+
+const sendEmail = async (e) => {
   e.preventDefault();
 
-  emailjs
-    .sendForm(
+  const formData = new FormData(form.current);
+
+  const name = formData.get("name")?.trim();
+  const email = formData.get("email")?.trim();
+  const project = formData.get("project")?.trim();
+  const message = formData.get("message")?.trim();
+
+  if (!name || name.length < 3) {
+    return toast.error("Please enter a valid name");
+  }
+
+  if (!validateEmail(email)) {
+    return toast.error("Please enter a valid email address");
+  }
+
+  if (!project || project.length < 3) {
+    return toast.error("Please enter a valid project type");
+  }
+
+  if (!message || message.length < 20) {
+    return toast.error(
+      "Please describe your project in at least 20 characters"
+    );
+  }
+
+  setLoading(true);
+
+  try {
+    await emailjs.sendForm(
       "service_xs797fp",
       "template_r47nqhp",
       form.current,
       "uxETAUVZJdDUlICYT"
-    )
-    .then(
-      () => {
-        toast.success("Message sent successfully!");
-      },
-      (error) => {
-        toast.error("Failed to send message");
-        console.log(error.text);
-      }
     );
 
-  e.target.reset();
+    toast.success("Message sent successfully!");
+    form.current.reset();
+  } catch (error) {
+    toast.error("Failed to send message");
+    console.error(error);
+  } finally {
+    setLoading(false);
+  }
 };
-
   return (
     <div className="min-h-screen bg-slate-950 text-white">
 
@@ -201,12 +230,15 @@ const sendEmail = (e) => {
                       Full Name
                     </label>
 
-                    <input
-                      type="text"
-                      name="name"
-                      placeholder="Enter your name"
-                      className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 outline-none focus:border-blue-500"
-                    />
+                 <input
+  type="text"
+  name="name"
+  placeholder="Enter your name"
+  minLength={3}
+  maxLength={50}
+  required
+  className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 outline-none focus:border-blue-500"
+/>
                   </div>
 
                   <div>
@@ -214,12 +246,14 @@ const sendEmail = (e) => {
                       Email Address
                     </label>
 
-                    <input
-                      type="email"
-                      name="email"
-                      placeholder="Enter your email"
-                      className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 outline-none focus:border-blue-500"
-                    />
+                  <input
+  type="email"
+  name="email"
+  placeholder="Enter your email"
+  autoComplete="email"
+  required
+  className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 outline-none focus:border-blue-500"
+/>
                   </div>
 
                   <div>
@@ -228,11 +262,14 @@ const sendEmail = (e) => {
                     </label>
 
                     <input
-                      type="text"
-                      name="project"
-                      placeholder="MCA Project, Website, Software..."
-                      className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 outline-none focus:border-blue-500"
-                    />
+  type="text"
+  name="project"
+  placeholder="MCA Project, Website, Software..."
+  minLength={3}
+  maxLength={100}
+  required
+  className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 outline-none focus:border-blue-500"
+/>
                   </div>
 
                   <div>
@@ -240,12 +277,15 @@ const sendEmail = (e) => {
                       Message
                     </label>
 
-                    <textarea
-                      rows="5"
-                      name="message"
-                      placeholder="Tell us about your project..."
-                      className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 outline-none focus:border-blue-500"
-                    />
+                   <textarea
+  rows="5"
+  name="message"
+  placeholder="Tell us about your project..."
+  minLength={20}
+  maxLength={1000}
+  required
+  className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 outline-none focus:border-blue-500"
+/>
                   </div>
 
                   <button

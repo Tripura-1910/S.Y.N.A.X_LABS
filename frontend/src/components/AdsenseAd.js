@@ -13,7 +13,7 @@ const AdsenseAd = () => {
     <ins
       className="adsbygoogle"
       style={{ display: "block" }}
-      data-ad-client="pub-1427277154820976"
+      data-ad-client="ca-pub-1427277154820976"
       data-ad-slot="1124418556"
       data-ad-format="auto"
       data-full-width-responsive="true"

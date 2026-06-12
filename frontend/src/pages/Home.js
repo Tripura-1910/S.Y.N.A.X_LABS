@@ -1096,7 +1096,7 @@ const Home = () => {
 
       {/* Portfolio Card */}
       <motion.a
-        href="https://github.com/Tripura-1910"
+        href="https://portfolio-one-ochre-63.vercel.app/"
         target="_blank"
         rel="noopener noreferrer"
         initial={{ opacity: 0, x: 80 }}

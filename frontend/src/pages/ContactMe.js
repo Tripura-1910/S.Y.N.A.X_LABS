@@ -13,6 +13,7 @@ import { FaGithub,
  FaLinkedin,
   FaInstagram, } from "react-icons/fa";
 import { toast } from "react-toastify";
+import { FaPersonDotsFromLine } from "react-icons/fa6";
 
 const ContactMe = () => {
   const form = useRef();
@@ -60,6 +61,13 @@ const ContactMe = () => {
       value: "Piravom, Ernakulam, Kerala",
       link: "#",
       color: "text-yellow-400",
+    },
+    {
+      icon: FaPersonDotsFromLine,
+      title: "PortFolio",
+      value: "portfolio.samuel",
+      link: "https://portfolio-one-ochre-63.vercel.app/",
+      color: "text-white",
     },
   ];
 
